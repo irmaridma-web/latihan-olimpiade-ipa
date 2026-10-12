@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Latihan Olympiade IPA & Sains - MIN 2 Garut (Open Lab 2026)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            emerald: '#059669',
+                            teal: '#0d9488',
+                            amber: '#d97706',
+                            sky: '#0284c7',
+                            purple: '#7c3aed'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background-color: #f0fdf4;
+            background-image: radial-gradient(#dcfce7 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .bounce-short {
+            animation: bounce 1s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-emerald-200">
+
+    <header class="bg-white/90 backdrop-blur-md shadow-md border-b-4 border-emerald-500 sticky top-0 z-30 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-emerald-200">
+                    <i class="fa-solid font-bold text-2xl fa-flask-vial"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-amber-300">
+                            <i class="fa-solid fa-trophy text-amber-600 mr-1"></i>Open Lab 2026
+                        </span>
+                        <span class="text-xs text-slate-500 font-medium hidden sm:inline">MIN 2 GARUT</span>
+                    </div>
+                    <h1 class="text-lg sm:text-xl font-extrabold text-slate-800 leading-tight">
+                        Olympiade IPA & Sains Interaktif
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex items-center gap-2">
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="px-4 py-2 text-sm font-bold rounded-xl transition duration-200 flex items-center gap-2 bg-emerald-600 text-white shadow-md">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span>Kuis Interaktif</span>
+                </button>
+                <button onclick="checkBankAccess()" id="nav-bank" class="px-4 py-2 text-sm font-bold rounded-xl transition duration-200 flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    <i id="bank-lock-icon" class="fa-solid fa-lock text-amber-500"></i>
+                    <span>Bank Soal & Pembahasan</span>
+                </button>
+                <button onclick="openTeacherModal()" id="nav-teacher" class="px-4 py-2 text-sm font-bold rounded-xl transition duration-200 flex items-center gap-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span class="hidden md:inline">Portal Guru</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- TAB 1: KUIS INTERAKTIF -->
+        <section id="tab-quiz" class="block space-y-6">
+            
+            <!-- FORM IDENTITAS (Jika kuis belum dimulai) -->
+            <div id="student-form-card" class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-emerald-100 max-w-2xl mx-auto my-6 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-100/60 rounded-full blur-2xl"></div>
+                <div class="absolute -left-10 -top-10 w-40 h-40 bg-amber-100/60 rounded-full blur-2xl"></div>
+                
+                <div class="text-center mb-8 relative z-10">
+                    <div class="w-16 h-16 bg-gradient-to-tr from-emerald-500 to-teal-400 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-200 text-2xl">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Selamat Datang, Calon Juara!</h2>
+                    <p class="text-slate-600 mt-2 text-sm sm:text-base">Siapkan dirimu untuk berlatih 50 Soal High Order Thinking Skills (HOTS) persiapan Seleksi Open Lab 2026 MI Negeri 2 Garut.</p>
+                </div>
+
+                <form id="start-quiz-form" onsubmit="handleStartQuiz(event)" class="space-y-4 relative z-10">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Nama Lengkap Siswa <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" id="input-nama" required placeholder="Contoh: Ahmad Fauzi" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 font-medium text-slate-800 transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Kelas <span class="text-red-500">*</span></label>
+                            <select id="input-kelas" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 font-medium text-slate-800 transition">
+                                <option value="">-- Pilih Kelas --</option>
+                                <option value="5 A">Kelas 5 A</option>
+                                <option value="5 B">Kelas 5 B</option>
+                                <option value="5 C">Kelas 5 C</option>
+                                <option value="6 A">Kelas 6 A</option>
+                                <option value="6 B">Kelas 6 B</option>
+                                <option value="6 C">Kelas 6 C</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">Nomor Absen <span class="text-red-500">*</span></label>
+                            <input type="number" id="input-absen" required min="1" max="50" placeholder="Contoh: 12" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 font-medium text-slate-800 transition">
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-xs text-emerald-800 flex items-start gap-3">
+                        <i class="fa-solid fa-circle-info text-emerald-600 text-base mt-0.5"></i>
+                        <div>
+                            <strong>Ketentuan Kuis:</strong>
+                            <ul class="list-disc list-inside mt-1 space-y-0.5">
+                                <li>Jumlah soal: 50 nomor pilihan ganda.</li>
+                                <li>Kunci & pembahasan terbuka setelah kuis **selesai sepenuhnya**.</li>
+                                <li>Hasil akan langsung tercatat otomatis di portal nilai guru.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-lg rounded-2xl shadow-lg shadow-emerald-200 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                        <span>Mulai Kuis Sekarang</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- PLAYER KUIS INTERAKTIF (Tampil saat kuis berjalan) -->
+            <div id="quiz-player-card" class="hidden grid-cols-1 lg:grid-cols-4 gap-6">
+                
+                <!-- Main Question Area (3 Cols) -->
+                <div class="lg:col-span-3 space-y-4">
+                    <!-- Progress Header -->
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <span id="quiz-student-badge" class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1.5 rounded-xl border border-emerald-200">
+                                Siswa
+                            </span>
+                            <span id="topic-badge" class="bg-sky-100 text-sky-800 text-xs font-semibold px-3 py-1.5 rounded-xl">
+                                Kategori
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs sm:text-sm font-semibold text-slate-600">
+                            <div class="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl">
+                                <i class="fa-solid fa-clock text-emerald-600"></i>
+                                <span id="quiz-timer">00:00:00</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl">
+                                <i class="fa-solid fa-check-double text-teal-600"></i>
+                                <span id="answered-count-badge">Terjawab: 0/50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-md border border-slate-200 relative min-h-[380px] flex flex-col justify-between">
+                        <div>
+                            <!-- Number & Title -->
+                            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                                <span class="text-sm font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg">
+                                    Soal Nomor <span id="current-q-num" class="text-lg">1</span> / 50
+                                </span>
+                                <button onclick="toggleBookmarkCurrent()" id="bookmark-btn" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition flex items-center gap-1.5 text-slate-500">
+                                    <i class="fa-regular fa-bookmark"></i>
+                                    <span>Tandai Ragu</span>
+                                </button>
+                            </div>
+
+                            <!-- Question Text -->
+                            <div id="question-text" class="text-slate-800 font-medium text-base sm:text-lg leading-relaxed mb-6">
+                                Memuat teks soal...
+                            </div>
+
+                            <!-- Options Container -->
+                            <div id="options-container" class="space-y-3">
+                                <!-- Options dynamically rendered -->
+                            </div>
+                        </div>
+
+                        <!-- Quiz Navigation Bar -->
+                        <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+                            <button onclick="prevQuestion()" id="btn-prev" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition flex items-center gap-2">
+                                <i class="fa-solid fa-chevron-left"></i>
+                                <span class="hidden sm:inline">Sebelumnya</span>
+                            </button>
+
+                            <div class="flex items-center gap-2">
+                                <button onclick="nextQuestion()" id="btn-next" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition flex items-center gap-2 shadow-md">
+                                    <span class="hidden sm:inline">Selanjutnya</span>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button onclick="confirmFinishQuiz()" id="btn-finish" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold rounded-xl text-sm transition flex items-center gap-2 shadow-md">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Kirim Jawaban</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Grid Navigation Drawer / Sidebar (1 Col) -->
+                <div class="bg-white p-5 rounded-3xl shadow-md border border-slate-200 flex flex-col justify-between h-fit">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center justify-between">
+                            <span>Peta Nomor Soal</span>
+                            <span class="text-xs font-normal text-slate-500">Klik untuk lompat</span>
+                        </h3>
+                        
+                        <!-- Grid Numbers -->
+                        <div id="q-grid" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 gap-2 max-h-[320px] overflow-y-auto custom-scrollbar p-1">
+                            <!-- Rendered JS -->
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-600">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3.5 h-3.5 bg-emerald-600 rounded-md inline-block"></span>
+                            <span>Sudah Dijawab</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3.5 h-3.5 bg-amber-400 rounded-md inline-block"></span>
+                            <span>Ragu-Ragu</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3.5 h-3.5 bg-slate-200 rounded-md inline-block"></span>
+                            <span>Belum Dijawab</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RESULT MODAL / CARD (Saat kuis telah selesai) -->
+            <div id="quiz-result-card" class="hidden bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-emerald-100 max-w-3xl mx-auto my-6 relative overflow-hidden">
+                <div class="text-center space-y-4">
+                    <div id="result-icon-bg" class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center mx-auto text-4xl shadow-inner">
+                        <i id="result-icon" class="fa-solid fa-trophy text-amber-500"></i>
+                    </div>
+                    
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Hasil Latihan Olympiade</h2>
+                    <p id="result-student-info" class="text-sm font-semibold text-slate-600">Ahmad Fauzi (Kelas 6 A)</p>
+                    
+                    <!-- Score Box -->
+                    <div class="bg-gradient-to-tr from-emerald-600 to-teal-500 text-white rounded-2xl p-6 shadow-xl max-w-sm mx-auto my-4 transform hover:scale-105 transition">
+                        <span class="text-xs uppercase font-bold tracking-widest text-emerald-100">Nilai Akhir Anda</span>
+                        <div class="text-5xl sm:text-6xl font-black my-1" id="final-score-val">0</div>
+                        <span id="final-score-text" class="text-xs font-medium text-emerald-100">Akurasi 0%</span>
+                    </div>
+
+                    <!-- Summary Stats Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left max-w-xl mx-auto my-6">
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                            <span class="block text-xs text-slate-500">Benar</span>
+                            <span id="res-correct" class="text-lg font-bold text-emerald-600">0</span>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                            <span class="block text-xs text-slate-500">Salah</span>
+                            <span id="res-wrong" class="text-lg font-bold text-rose-600">0</span>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                            <span class="block text-xs text-slate-500">Kosong</span>
+                            <span id="res-empty" class="text-lg font-bold text-amber-600">0</span>
+                        </div>
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                            <span class="block text-xs text-slate-500">Waktu</span>
+                            <span id="res-time" class="text-sm font-bold text-slate-700">00:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Motivational Message -->
+                    <div id="motivational-msg" class="p-4 bg-amber-50 rounded-2xl border border-amber-200 text-sm font-medium text-amber-900 max-w-xl mx-auto">
+                        Pesan Motivasi...
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+                        <button onclick="unlockAndGoToBank()" class="px-6 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl shadow-lg shadow-emerald-200 transition flex items-center gap-2">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                            <span>Buka Bank Soal & Pembahasan</span>
+                        </button>
+                        <button onclick="restartQuiz()" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl transition flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Coba Kuis Lagi</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- TAB 2: BANK SOAL & PEMBAHASAN -->
+        <section id="tab-bank" class="hidden space-y-6">
+            
+            <!-- Locked State Screen (Jika belum selesaikan kuis) -->
+            <div id="bank-locked-screen" class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-200 text-center max-w-xl mx-auto my-8">
+                <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-3xl flex items-center justify-center mx-auto mb-4 text-3xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-slate-800">Akses Terkunci</h3>
+                <p class="text-slate-600 my-3 text-sm leading-relaxed">
+                    Sesuai petunjuk pengerjaan, Bank Soal & Kunci Pembahasan lengkap hanya dapat dibuka **setelah Anda merampungkan Kuis Interaktif** secara penuh.
+                </p>
+                <button onclick="switchTab('quiz')" class="mt-4 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md transition inline-flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span>Kerjakan Kuis Sekarang</span>
+                </button>
+            </div>
+
+            <!-- Unlocked Content -->
+            <div id="bank-unlocked-content" class="hidden space-y-6">
+                <!-- Filter Bar -->
+                <div class="bg-white p-5 rounded-3xl shadow-md border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-emerald-600"></i>
+                            <span>Bank Soal, Kunci & Pembahasan Lengkap</span>
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Pelajari pembahasan ilmiah dari seluruh 50 soal latihan Open Lab 2026.</p>
+                    </div>
+
+                    <!-- Category Selector Filter -->
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs font-bold text-slate-600">Filter Topik:</label>
+                        <select id="bank-filter-category" onchange="renderBankSoal()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                            <option value="ALL">Semua Topik (50 Soal)</option>
+                            <option value="Ekosistem">Ekosistem & Simbiosis</option>
+                            <option value="Tumbuhan">Tumbuhan & Adaptasi</option>
+                            <option value="Tubuh Manusia">Tubuh Manusia & Organ</option>
+                            <option value="Gaya">Gaya & Pengaruhnya</option>
+                            <option value="Gerak">Gerak & Pesawat Sederhana</option>
+                            <option value="Energi">Energi & Perubahannya</option>
+                            <option value="Listrik">Listrik & Rangkaian</option>
+                            <option value="Magnet">Magnet & Sifatnya</option>
+                            <option value="Bahan">Sifat & Kegunaan Bahan</option>
+                            <option value="Materi">Materi & Wujud Benda</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Questions List Container -->
+                <div id="bank-list-container" class="space-y-4">
+                    <!-- Rendered JS -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- MODAL PORTAL GURU (REKAP NILAI) -->
+    <div id="teacher-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="bg-indigo-900 text-white p-5 sm:p-6 flex items-center justify-between no-print">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-700 rounded-xl flex items-center justify-center text-amber-300 font-bold">
+                        <i class="fa-solid fa-user-shield text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold">Portal Rekap Nilai Guru</h3>
+                        <p class="text-xs text-indigo-200">MI Negeri 2 Garut - Media Latihan Open Lab 2026</p>
+                    </div>
+                </div>
+                <button onclick="closeTeacherModal()" class="text-indigo-200 hover:text-white p-2 rounded-lg text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Area -->
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-grow space-y-6">
+                
+                <!-- Security PIN Form (If not authenticated) -->
+                <div id="teacher-auth-card" class="max-w-md mx-auto py-8 text-center space-y-4">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center mx-auto text-2xl">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-800">Verifikasi Khusus Guru</h4>
+                        <p class="text-xs text-slate-500 mt-1">Masukkan PIN Guru untuk membuka daftar rekapitulasi nilai siswa.</p>
+                    </div>
+                    <form onsubmit="handleTeacherLogin(event)" class="space-y-3">
+                        <input type="password" id="teacher-pin-input" required placeholder="Masukkan PIN Guru (Default: 2026)" class="w-full text-center tracking-widest text-xl px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold">
+                        <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-md transition text-sm">
+                            Masuk Portal Rekap Nilai
+                        </button>
+                    </form>
+                    <p class="text-[11px] text-slate-400 italic">*PIN bawaan sistem: <span class="font-bold text-indigo-600">2026</span></p>
+                </div>
+
+                <!-- Dashboard Content (Only visible after login) -->
+                <div id="teacher-dashboard" class="hidden space-y-6">
+                    
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 no-print">
+                        <div class="bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
+                            <span class="text-xs text-indigo-600 font-medium">Total Peserta</span>
+                            <div class="text-2xl font-black text-indigo-900" id="stat-total-siswa">0</div>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                            <span class="text-xs text-emerald-600 font-medium">Rata-Rata Nilai</span>
+                            <div class="text-2xl font-black text-emerald-900" id="stat-avg-score">0</div>
+                        </div>
+                        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100">
+                            <span class="text-xs text-amber-600 font-medium">Nilai Tertinggi</span>
+                            <div class="text-2xl font-black text-amber-900" id="stat-max-score">0</div>
+                        </div>
+                        <div class="bg-rose-50 p-4 rounded-2xl border border-rose-100">
+                            <span class="text-xs text-rose-600 font-medium">Nilai Terendah</span>
+                            <div class="text-2xl font-black text-rose-900" id="stat-min-score">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Search & Action Toolbar -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 no-print">
+                        <div class="relative w-full sm:w-64">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i class="fa-solid fa-magnifying-glass text-xs"></i></span>
+                            <input type="text" id="teacher-search" oninput="renderTeacherTable()" placeholder="Cari nama / kelas..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <button onclick="window.print()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-print"></i>
+                                <span>Cetak Rekap</span>
+                            </button>
+                            <button onclick="exportToCSV()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-excel"></i>
+                                <span>Unduh CSV</span>
+                            </button>
+                            <button onclick="clearAllDataConfirm()" class="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition flex items-center gap-1.5 border border-rose-200">
+                                <i class="fa-solid fa-trash-can"></i>
+                                <span>Hapus Data</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table Display -->
+                    <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm bg-white">
+                        <table class="w-full text-left text-xs sm:text-sm text-slate-700">
+                            <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="py-3 px-4">#</th>
+                                    <th class="py-3 px-4">Nama Siswa</th>
+                                    <th class="py-3 px-4">Kelas</th>
+                                    <th class="py-3 px-4">No. Absen</th>
+                                    <th class="py-3 px-4 text-center">Nilai Akhir</th>
+                                    <th class="py-3 px-4 text-center">B / S / K</th>
+                                    <th class="py-3 px-4">Waktu Pengerjaan</th>
+                                    <th class="py-3 px-4">Tanggal & Jam</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teacher-table-body" class="divide-y divide-slate-100 font-medium">
+                                <!-- Rendered JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- UI Custom Modal Toast / Alert -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full text-center space-y-4 border border-slate-100">
+            <div id="custom-modal-icon" class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h4 id="custom-modal-title" class="text-lg font-bold text-slate-800">Perhatian</h4>
+                <p id="custom-modal-body" class="text-xs text-slate-600 mt-1">Pesan modal...</p>
+            </div>
+            <div id="custom-modal-actions" class="flex justify-center gap-2 pt-2">
+                <!-- Buttons rendered dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>
+                &copy; 2026 <strong>MI Negeri 2 Garut</strong>. Tim Pembina Olympiade IPA & Sains Open Lab.
+            </div>
+            <div class="flex items-center gap-4 text-slate-400">
+                <span class="hover:text-emerald-600 transition"><i class="fa-solid fa-school mr-1"></i>MIN 2 Garut</span>
+                <span class="hover:text-emerald-600 transition"><i class="fa-solid fa-flask mr-1"></i>Sains Juara</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data 50 Soal HOTS IPA & Sains Lengkap sesuai dokumen
+        const quizData = [
+            // Ekosistem
+            {
+                id: 1,
+                topic: "Ekosistem",
+                question: "Di kebun madrasah terdapat rumput, belalang, katak, ular, elang, jamur, dan bakteri. Belalang memakan rumput, katak memangsa belalang, ular memangsa katak, sedangkan elang dapat memangsa ular. Setelah hujan deras, sebagian rumput tertutup lumpur dan jumlah belalang menurun tajam.\nDampak awal yang paling mungkin terjadi pada rantai makanan tersebut adalah ....",
+                options: [
+                    "Katak bertambah karena memperoleh lebih banyak makanan",
+                    "Katak berkurang karena sumber makanannya menurun",
+                    "Rumput langsung habis karena dimakan elang",
+                    "Jamur berhenti menguraikan sisa makhluk hidup"
+                ],
+                answer: 1, // Index B
+                explanation: "Belalang merupakan sumber makanan utama (konsumen I) bagi katak (konsumen II). Ketika populasi belalang menurun tajam akibat tertutup lumpur, katak akan kekurangan makanan, sehingga dampak awalnya populasi katak menurun."
+            },
+            {
+                id: 2,
+                topic: "Ekosistem",
+                question: "Sebuah kolam berisi fitoplankton, zooplankton, ikan kecil, dan ikan besar. Ketika limbah pupuk masuk, fitoplankton tumbuh sangat cepat. Beberapa hari kemudian banyak ikan terlihat mengapung, meskipun pada awalnya air tampak semakin hijau dan subur.\nPenjelasan ilmiah terbaik atas kematian ikan adalah ....",
+                options: [
+                    "Fitoplankton menghasilkan racun dalam semua keadaan",
+                    "Ikan besar berubah menjadi pemakan tumbuhan",
+                    "Penguraian organisme berlebih menghabiskan oksigen terlarut",
+                    "Air hijau membuat ikan tidak dapat melihat makanan"
+                ],
+                answer: 2, // Index C
+                explanation: "Peristiwa ini disebut eutrofikasi. Ledakan pertumbuhan alga/fitoplankton mendadak mengakibatkan kematian alga secara massal. Proses penguraian bangkai alga oleh bakteri pengurai membutuhkan banyak oksigen (BOD tinggi), sehingga pasokan oksigen terlarut di air habis dan menyebabkan ikan mati."
+            },
+            {
+                id: 3,
+                topic: "Ekosistem",
+                question: "Di kebun, lebah mengambil nektar dari bunga sekaligus membantu memindahkan serbuk sari. Anggrek tertentu menempel pada batang pohon untuk memperoleh tempat hidup, tetapi tidak mengambil sari makanan dari pohon. Pada tanaman lain, benalu memiliki akar isap yang mengambil air dan mineral dari inangnya.\nPasangan hubungan yang tepat adalah ....",
+                options: [
+                    "Lebah–bunga mutualisme; anggrek–pohon komensalisme; benalu–pohon parasitisme",
+                    "Lebah–bunga parasitisme; anggrek–pohon mutualisme; benalu–pohon komensalisme",
+                    "Ketiganya merupakan kompetisi",
+                    "Ketiganya merupakan predasi"
+                ],
+                answer: 0, // Index A
+                explanation: "Lebah dan bunga saling menguntungkan (Mutualisme). Anggrek untung mendapat tempat hidup tanpa merugikan pohon (Komensalisme). Benalu mengambil air dan nutrisi dari pohon inang sehingga merugikan inang (Parasitisme)."
+            },
+            {
+                id: 4,
+                topic: "Ekosistem",
+                question: "Warga memasang perangkap untuk mengurangi ular di sawah karena takut. Beberapa minggu kemudian jumlah ular turun, tikus meningkat, dan banyak tanaman padi rusak. Petani menyadari bahwa ular memangsa tikus, sementara tikus memakan padi.\nTindakan paling tepat berdasarkan hubungan antarmakhluk hidup itu adalah ....",
+                options: [
+                    "Membasmi semua ular agar sawah aman",
+                    "Menambah racun tikus tanpa mempertimbangkan dampaknya",
+                    "Memulihkan keseimbangan dengan menjaga predator alami dan mengelola tikus secara terpadu",
+                    "Menghilangkan padi agar tikus tidak memiliki makanan"
+                ],
+                answer: 2, // Index C
+                explanation: "Ular adalah predator alami yang membatasi ledakan populasi hama tikus. Menjaga predator alami merupakan tindakan paling rasional dan bijak secara ekologis demi menjaga keseimbangan ekosistem pertanian."
+            },
+            {
+                id: 5,
+                topic: "Ekosistem",
+                question: "Dalam suatu ekosistem, energi yang tersimpan pada rumput digunakan belalang, kemudian katak, lalu ular. Sebagian energi dipakai setiap organisme untuk bergerak, tumbuh, dan mempertahankan hidup, serta dilepas sebagai panas. Karena itu, energi yang tersedia pada tingkat trofik lebih tinggi makin sedikit.\nJika rumput menyimpan energi 10.000 kJ dan hanya sekitar 10% berpindah ke tingkat berikutnya, energi yang tersedia bagi katak kira-kira ....",
+                options: [
+                    "10.000 kJ",
+                    "1.000 kJ",
+                    "100 kJ",
+                    "10 kJ"
+                ],
+                answer: 2, // Index C
+                explanation: "Rumput (Produsen) = 10.000 kJ. Belalang (Konsumen I) = 10% x 10.000 = 1.000 kJ. Katak (Konsumen II) = 10% x 1.000 = 100 kJ."
+            },
+
+            // Tumbuhan
+            {
+                id: 6,
+                topic: "Tumbuhan",
+                question: "Dua tanaman kacang ditanam pada pot identik dan disiram dengan jumlah air sama. Pot A diletakkan di dekat jendela yang mendapat cahaya, sedangkan pot B diletakkan di lemari gelap. Setelah satu minggu, batang tanaman B lebih panjang tetapi pucat dan daunnya kecil. Tanaman A lebih pendek, hijau, dan kokoh.\nKesimpulan paling tepat dari percobaan ini adalah ....",
+                options: [
+                    "Tanaman tidak memerlukan cahaya jika batangnya panjang",
+                    "Cahaya berperan dalam pembentukan makanan dan pertumbuhan normal tanaman",
+                    "Air hanya diperlukan tanaman yang berada di tempat gelap",
+                    "Tanaman B lebih sehat karena tumbuh lebih cepat tinggi"
+                ],
+                answer: 1, // Index B
+                explanation: "Tanaman di tempat gelap mengalami etiolasi (batang tinggi pucat akibat hormon auksin tidak terurai), namun kekurangan klorofil dan lemah. Cahaya dibutuhkan untuk fotosintesis dan pertumbuhan normal secara kokoh dan sehat."
+            },
+            {
+                id: 7,
+                topic: "Tumbuhan",
+                question: "Seorang siswa menutup sebagian permukaan daun tanaman dengan kertas hitam, lalu meletakkan tanaman di tempat bercahaya selama beberapa jam. Setelah itu daun diuji menggunakan larutan iodin untuk mendeteksi amilum. Bagian daun yang terkena cahaya berubah biru kehitaman, sedangkan bagian tertutup tidak.\nApa inferensi yang paling kuat dari hasil tersebut?",
+                options: [
+                    "Cahaya diperlukan untuk pembentukan amilum melalui fotosintesis",
+                    "Iodin membuat daun menghasilkan makanan",
+                    "Bagian tertutup menyerap karbon dioksida lebih banyak",
+                    "Akar hanya menyerap air saat daun terkena cahaya"
+                ],
+                answer: 0, // Index A
+                explanation: "Uji Sach menunjukkan bahwa larutan iodin bereaksi dengan amilum (hasil fotosintesis) membentuk warna biru kehitaman. Bagian yang tertutup kertas hitam tidak mendapat cahaya sehingga tidak melakukan fotosintesis dan tidak menghasilkan amilum."
+            },
+            {
+                id: 8,
+                topic: "Tumbuhan",
+                question: "Di daerah kering, kaktus memiliki daun yang berubah menjadi duri, batang tebal, dan lapisan lilin. Tanaman teratai justru memiliki daun lebar yang mengapung di permukaan air serta rongga udara di tangkainya. Keduanya hidup baik di habitat yang berbeda.\nPernyataan yang menjelaskan perbedaan adaptasi tersebut adalah ....",
+                options: [
+                    "Semua tumbuhan membutuhkan bentuk daun yang sama",
+                    "Kaktus mengurangi kehilangan air, sedangkan teratai membantu daun memperoleh cahaya dan tetap mengapung",
+                    "Teratai menyimpan air di duri, sedangkan kaktus bernapas melalui akar saja",
+                    "Adaptasi tidak berkaitan dengan kondisi lingkungan"
+                ],
+                answer: 1, // Index B
+                explanation: "Kaktus beradaptasi di lingkungan kering (xerofit) dengan mereduksi daun menjadi duri untuk menekan transpirasi. Teratai di lingkungan air (hidrofit) berdaun lebar untuk mempercepat penguapan dan rongga udara agar dapat mengapung."
+            },
+            {
+                id: 9,
+                topic: "Tumbuhan",
+                question: "Sebuah tanaman layu pada siang hari meskipun tanahnya masih lembap. Ketika tanaman dipindahkan ke tempat teduh, daunnya kembali tegak. Pada siang panas, penguapan air dari daun berlangsung cepat, sedangkan akar belum tentu menyerap air secepat kehilangan air.\nProses yang paling berkaitan dengan peristiwa tersebut adalah ....",
+                options: [
+                    "Fotosintesis berhenti selamanya",
+                    "Transpirasi menyebabkan kehilangan air dari daun",
+                    "Penyerbukan membuat batang kehilangan kekuatan",
+                    "Buah mengubah air menjadi tanah"
+                ],
+                answer: 1, // Index B
+                explanation: "Transpirasi adalah proses penguapan air dari jaringan tumbuhan (melalui stomata). Pada siang terik, laju transpirasi melampaui laju penyerapan air oleh akar sehingga sel-sel kehilangan tekanan turgor dan tanaman layu sementara."
+            },
+            {
+                id: 10,
+                topic: "Tumbuhan",
+                question: "Petani memotong beberapa bunga pada tanaman labu sebelum serbuk sari berpindah ke kepala putik. Tanaman itu tetap tumbuh dan menghasilkan daun, tetapi jumlah buah yang terbentuk menurun. Pada tanaman berbunga, penyerbukan biasanya mendahului pembuahan.\nPenjelasan yang paling sesuai adalah ....",
+                options: [
+                    "Daun tidak bisa melakukan fotosintesis setelah bunga dipotong",
+                    "Penyerbukan membantu proses reproduksi sehingga peluang terbentuknya biji dan buah meningkat",
+                    "Akar hanya tumbuh jika buah sudah matang",
+                    "Buah terbentuk langsung dari tanah tanpa peran bunga"
+                ],
+                answer: 1, // Index B
+                explanation: "Bunga adalah organ reproduksi generatif pada tumbuhan berbunga. Penyerbukan (jatuhnya serbuk sari ke kepala putik) dilanjutkan pembuahan yang memicu pembentukan bakal biji dan bakal buah."
+            },
+
+            // Tubuh Manusia
+            {
+                id: 11,
+                topic: "Tubuh Manusia",
+                question: "Saat berlari, napas seorang siswa menjadi lebih cepat dan jantung berdenyut lebih kuat. Otot kaki menggunakan lebih banyak energi untuk berkontraksi. Sel membutuhkan oksigen dan zat gizi untuk melepaskan energi, sementara karbon dioksida hasil proses tersebut harus dikeluarkan.\nHubungan kerja sistem organ yang paling tepat adalah ....",
+                options: [
+                    "Pernapasan mengambil oksigen, peredaran darah mengangkutnya, dan otot menggunakan energi dari zat gizi",
+                    "Sistem pencernaan memompa darah ke paru-paru",
+                    "Sistem rangka menghasilkan oksigen untuk otot",
+                    "Sistem ekskresi mengubah karbon dioksida menjadi makanan"
+                ],
+                answer: 0, // Index A
+                explanation: "Terjadi integrasi antarsistem organ: Sistem pernapasan memasok O2, sistem peredaran darah mengedarkan O2 dan glukosa ke sel-sel otot, lalu otot mengubahnya menjadi energi kimiawi untuk bergerak."
+            },
+            {
+                id: 12,
+                topic: "Tubuh Manusia",
+                question: "Seorang siswa makan terburu-buru tanpa mengunyah cukup lama. Ia merasa perutnya tidak nyaman. Pencernaan dimulai di mulut: gigi menghancurkan makanan secara mekanis dan air liur mengandung enzim yang mulai memecah zat tepung. Makanan kemudian bergerak melalui kerongkongan menuju lambung.\nKebiasaan yang paling membantu tahap awal pencernaan adalah ....",
+                options: [
+                    "Menelan makanan utuh agar cepat sampai ke lambung",
+                    "Mengunyah makanan hingga halus dan makan dengan tenang",
+                    "Minum minuman sangat manis sebagai pengganti air liur",
+                    "Berbaring saat masih mengunyah"
+                ],
+                answer: 1, // Index B
+                explanation: "Mengunyah makanan hingga halus secara mekanis memperluas permukaan makanan sehingga enzim ptyalin di air liur serta enzim pencernaan di lambung bekerja lebih efektif."
+            },
+            {
+                id: 13,
+                topic: "Tubuh Manusia",
+                question: "Ketika tangan menyentuh benda panas, seseorang segera menarik tangannya sebelum sempat berpikir panjang. Rangsangan diterima reseptor kulit, lalu pesan saraf diteruskan ke sumsum tulang belakang dan saraf motorik memerintahkan otot bergerak. Respons cepat ini melindungi tubuh dari cedera.\nJalur respons yang paling tepat adalah ....",
+                options: [
+                    "Reseptor kulit → saraf sensorik → sumsum tulang belakang → saraf motorik → otot",
+                    "Otot → lambung → jantung → kulit",
+                    "Paru-paru → tulang → saraf sensorik → mata",
+                    "Reseptor kulit → usus → otot tanpa saraf"
+                ],
+                answer: 0, // Index A
+                explanation: "Ini merupakan mekanis gerak refleks: Rangsang -> Reseptor kulit -> Saraf Sensorik -> Sumsum Tulang Belakang (interneuron) -> Saraf Motorik -> Efektor (Otot)."
+            },
+            {
+                id: 14,
+                topic: "Tubuh Manusia",
+                question: "Seorang anak mengalami luka kecil. Beberapa waktu kemudian, darah di sekitar luka menggumpal dan perdarahan berhenti. Komponen darah memiliki tugas berbeda: sel darah merah mengangkut oksigen, sel darah putih membantu pertahanan tubuh, dan keping darah berperan dalam pembekuan.\nKomponen yang paling langsung membantu menghentikan perdarahan adalah ....",
+                options: [
+                    "Sel darah merah",
+                    "Sel darah putih",
+                    "Keping darah",
+                    "Plasma yang membawa oksigen saja"
+                ],
+                answer: 2, // Index C
+                explanation: "Keping darah (trombosit) melepaskan trombokinase/tromboplastin saat pecah terkena luka kasar untuk memicu proses pembekuan darah (pembentukan jarum-jarum fibrin)."
+            },
+            {
+                id: 15,
+                topic: "Tubuh Manusia",
+                question: "Seorang siswa jarang minum air dan sering menahan buang air kecil. Ginjal menyaring darah, membuang zat sisa metabolisme, serta membantu mengatur keseimbangan air dan garam. Urine dialirkan melalui ureter ke kandung kemih sebelum dikeluarkan melalui uretra.\nPernyataan yang paling tepat tentang fungsi ginjal adalah ....",
+                options: [
+                    "Mencerna protein menjadi asam amino",
+                    "Menyaring darah dan membantu menjaga keseimbangan cairan tubuh",
+                    "Menghasilkan gerakan tulang secara langsung",
+                    "Menyerap oksigen dari udara"
+                ],
+                answer: 1, // Index B
+                explanation: "Fungsi utama ginjal dalam sistem ekskresi adalah menyaring limbah metabolisme dari darah (filtrasi, reabsorpsi, augmentasi) dan menjaga osmoregulasi (keseimbangan cairan)."
+            },
+
+            // Gaya
+            {
+                id: 16,
+                topic: "Gaya",
+                question: "Dua kelompok siswa mendorong lemari yang sama dari arah berlawanan. Kelompok A mendorong ke kanan dengan gaya 35 N, sedangkan kelompok B mendorong ke kiri dengan gaya 20 N. Gesekan lantai diabaikan. Lemari awalnya diam dan gaya bekerja mendatar.\nResultan gaya dan arah kecenderungan gerak lemari adalah ....",
+                options: [
+                    "55 N ke kanan",
+                    "15 N ke kanan",
+                    "15 N ke kiri",
+                    "0 N karena gaya berlawanan"
+                ],
+                answer: 1, // Index B
+                explanation: "Gaya searah dijumlahkan, gaya berlawanan dikurangkan: Resultan R = F1 - F2 = 35 N (kanan) - 20 N (kiri) = 15 N ke arah kanan."
+            },
+            {
+                id: 17,
+                topic: "Gaya",
+                question: "Sebuah bola plastisin diremas hingga bentuknya berubah pipih. Setelah dilepaskan, bola tidak kembali ke bentuk semula. Pada percobaan lain, pegas ditarik lalu kembali mendekati panjang awal saat tarikan dilepas.\nKesimpulan yang paling tepat adalah ....",
+                options: [
+                    "Gaya hanya dapat mengubah kecepatan benda",
+                    "Gaya dapat mengubah bentuk; respons benda bergantung pada sifat bahannya",
+                    "Semua benda pasti kembali ke bentuk semula",
+                    "Plastisin tidak mengalami gaya saat diremas"
+                ],
+                answer: 1, // Index B
+                explanation: "Gaya dapat mengubah bentuk benda. Bahan elastis (pegas) akan kembali ke bentuk awal, sedangkan bahan plastis (plastisin) akan mengalami deformasi permanen."
+            },
+            {
+                id: 18,
+                topic: "Gaya",
+                question: "Seorang anak menarik gerobak kosong dengan gaya tertentu. Ketika gerobak diisi buku-buku berat, gaya tarik yang sama membuat gerobak lebih sulit dipercepat. Permukaan jalan dan gaya tarik dianggap sama pada kedua percobaan.\nMengapa gerobak bermuatan lebih sulit dipercepat?",
+                options: [
+                    "Massa yang lebih besar membuat perubahan gerak lebih sulit",
+                    "Gaya gravitasi hilang saat gerobak kosong",
+                    "Buku menghilangkan semua gaya gesek",
+                    "Gerobak bermuatan tidak memiliki kelembaman"
+                ],
+                answer: 0, // Index A
+                explanation: "Berdasarkan Hukum II Newton (a = F/m), percepatan berbanding terbalik dengan massa (m). Makin besar massa benda, makin besar pula kelembamannya (inersia) sehingga lebih sulit diakselerasi."
+            },
+            {
+                id: 19,
+                topic: "Gaya",
+                question: "Sepeda direm saat melaju di jalan. Kampas rem menekan roda, dan gesekan memperlambat putaran hingga sepeda berhenti. Pada jalan basah, daya cengkeram ban dapat menurun sehingga jarak pengereman bertambah.\nSaran paling aman berdasarkan konsep gaya gesek adalah ....",
+                options: [
+                    "Melaju lebih cepat di jalan basah",
+                    "Menjaga jarak lebih jauh dan mengurangi kecepatan saat jalan basah",
+                    "Mengurangi tekanan rem sampai roda terus berputar cepat",
+                    "Menggunakan ban yang sangat licin"
+                ],
+                answer: 1, // Index B
+                explanation: "Jalan basah memperkecil koefisien gaya gesek antara ban dan jalan. Mengurangi kecepatan dan menjaga jarak memberikan ruang kompensasi atas jarak pengereman yang memanjang."
+            },
+            {
+                id: 20,
+                topic: "Gaya",
+                question: "Seorang siswa menggunakan pembuka botol bertuas. Titik tumpu berada dekat tutup botol, beban adalah tutup yang sulit terangkat, dan gaya diberikan pada ujung gagang yang lebih jauh dari titik tumpu.\nMengapa alat tersebut memudahkan pekerjaan?",
+                options: [
+                    "Lengan kuasa lebih panjang sehingga gaya yang diperlukan dapat lebih kecil",
+                    "Alat menghilangkan beban dan gravitasi",
+                    "Titik tumpu membuat tutup botol tidak memiliki massa",
+                    "Gaya selalu menjadi nol pada tuas"
+                ],
+                answer: 0, // Index A
+                explanation: "Prinsip tuas/pengungkit: Keuntungan mekanik (KM) = Lengan Kuasa (Lk) / Lengan Beban (Lb). Semakin panjang lengan kuasa dibanding lengan beban, gaya kuasa yang dibutuhkan semakin kecil."
+            },
+
+            // Gerak & Pesawat Sederhana
+            {
+                id: 21,
+                topic: "Gerak",
+                question: "Dua pelari menempuh lintasan lurus 600 meter. Rani menyelesaikan lintasan dalam 120 detik, sedangkan Dito dalam 150 detik. Mereka dianggap bergerak dengan kelajuan rata-rata yang tetap untuk perbandingan ini.\nPernyataan yang benar adalah ....",
+                options: [
+                    "Kelajuan Rani 4 m/s dan Dito 5 m/s",
+                    "Kelajuan Rani 5 m/s dan Dito 4 m/s",
+                    "Kelajuan keduanya 600 m/s",
+                    "Dito lebih cepat karena waktunya lebih lama"
+                ],
+                answer: 1, // Index B
+                explanation: "v = s / t. Kelajuan Rani = 600 m / 120 s = 5 m/s. Kelajuan Dito = 600 m / 150 s = 4 m/s."
+            },
+            {
+                id: 22,
+                topic: "Gerak",
+                question: "Sebuah robot bergerak dari titik A ke titik B sejauh 12 meter ke timur, lalu kembali 5 meter ke barat. Seluruh gerakan berlangsung selama 7 detik. Jarak adalah panjang seluruh lintasan, sedangkan perpindahan memperhitungkan posisi awal dan akhir beserta arahnya.\nPasangan jarak dan besar perpindahan robot adalah ....",
+                options: [
+                    "7 m dan 17 m",
+                    "17 m dan 7 m ke timur",
+                    "17 m dan 17 m ke barat",
+                    "12 m dan 5 m ke timur"
+                ],
+                answer: 1, // Index B
+                explanation: "Jarak = total lintasan = 12 m + 5 m = 17 m. Perpindahan = perubahan posisi akhir = +12 m - 5 m = 7 m ke arah timur."
+            },
+            {
+                id: 23,
+                topic: "Gerak",
+                question: "Dalam lomba, sebuah mobil mainan menempuh 2 meter pada 4 detik pertama dan 2 meter lagi pada 2 detik berikutnya. Mobil menempuh jarak yang sama dalam waktu berbeda. Hal ini menunjukkan kelajuannya tidak tetap.\nPada bagian lintasan manakah mobil bergerak lebih cepat?",
+                options: [
+                    "Dua meter pertama, karena membutuhkan waktu lebih lama",
+                    "Dua meter kedua, karena jarak sama ditempuh dalam waktu lebih singkat",
+                    "Keduanya pasti sama cepat",
+                    "Tidak dapat dibandingkan meskipun jarak dan waktu diketahui"
+                ],
+                answer: 1, // Index B
+                explanation: "Pada 2 meter pertama: v1 = 2/4 = 0,5 m/s. Pada 2 meter kedua: v2 = 2/2 = 1,0 m/s. Mobil bergerak lebih cepat pada bagian kedua karena menempuh jarak sama dengan waktu lebih singkat."
+            },
+            {
+                id: 24,
+                topic: "Gerak",
+                question: "Seorang pekerja menaikkan peti ke bak truk menggunakan papan miring. Ia memilih papan yang lebih panjang dengan ujung bawah lebih jauh dari truk, sehingga kemiringannya lebih landai. Peti memang harus didorong melalui jarak lebih jauh, tetapi terasa lebih ringan.\nPenjelasan yang paling tepat adalah ....",
+                options: [
+                    "Bidang miring meniadakan usaha seluruhnya",
+                    "Bidang miring menukar gaya yang lebih kecil dengan jarak tempuh yang lebih panjang",
+                    "Peti kehilangan massa saat dinaikkan",
+                    "Papan miring menghasilkan energi tanpa sumber"
+                ],
+                answer: 1, // Index B
+                explanation: "Prinsip bidang miring: Usaha tetap (W = F x s). Dengan memperpanjang s (papan lebih landai), gaya dorong F yang diperlukan menjadi jauh lebih kecil."
+            },
+            {
+                id: 25,
+                topic: "Gerak",
+                question: "Sebuah katrol tetap dipasang di atas sumur untuk mengangkat ember. Katrol mengubah arah tarikan sehingga orang dapat menarik tali ke bawah sambil ember bergerak ke atas. Katrol tetap ideal tidak memperkecil besar gaya, tetapi membuat arah gaya lebih nyaman.\nManfaat utama katrol tetap pada situasi ini adalah ....",
+                options: [
+                    "Mengubah arah gaya tarik",
+                    "Mengurangi massa air",
+                    "Menghilangkan gaya gravitasi",
+                    "Membuat tali tidak mengalami tegangan"
+                ],
+                answer: 0, // Index A
+                explanation: "Katrol tetap memiliki keuntungan mekanik (KM = 1). Fungsinya bukan memperkecil gaya, melainkan mengubah arah gaya (menarik ke bawah memanfaatkan berat badan)."
+            },
+
+            // Energi
+            {
+                id: 26,
+                topic: "Energi",
+                question: "Panel surya di atap sekolah menerima cahaya matahari dan mengubahnya menjadi energi listrik. Listrik digunakan untuk menyalakan lampu dan kipas. Pada sore mendung, daya yang dihasilkan panel menurun sehingga sekolah perlu mengatur penggunaan peralatan.\nRangkaian perubahan energi yang benar adalah ....",
+                options: [
+                    "Listrik → cahaya matahari → kimia",
+                    "Cahaya matahari → listrik → cahaya dan gerak",
+                    "Gerak → bunyi → cahaya matahari",
+                    "Kimia → gravitasi → listrik tanpa perantara"
+                ],
+                answer: 1, // Index B
+                explanation: "Panel surya: Cahaya matahari -> Listrik (sel fotovoltaik). Beban: Listrik -> Cahaya (lampu) dan Gerak (kipas)."
+            },
+            {
+                id: 27,
+                topic: "Energi",
+                question: "Bola diletakkan di rak setinggi 2 meter. Saat bola jatuh, ketinggiannya berkurang dan kecepatannya bertambah. Jika hambatan udara diabaikan, energi tidak hilang, tetapi berubah bentuk selama gerak.\nPerubahan energi utama ketika bola jatuh adalah ....",
+                options: [
+                    "Energi kinetik menjadi energi potensial gravitasi",
+                    "Energi potensial gravitasi menjadi energi kinetik",
+                    "Energi listrik menjadi energi kimia",
+                    "Energi bunyi menjadi massa"
+                ],
+                answer: 1, // Index B
+                explanation: "Saat bola berada di ketinggian, bola memiliki Energi Potensial maksimum. Ketika jatuh (h berkurang, v bertambah), Energi Potensial diubah menjadi Energi Kinetik."
+            },
+            {
+                id: 28,
+                topic: "Energi",
+                question: "Ketika setrika digunakan, energi listrik membuat elemen pemanas menjadi panas. Setelah beberapa saat, pakaian menjadi lebih rapi. Sebagian energi juga menyebar ke udara dan bagian setrika lainnya, sehingga tidak seluruh energi listrik digunakan tepat pada pakaian.\nPernyataan yang menunjukkan pemahaman tentang efisiensi energi adalah ....",
+                options: [
+                    "Semua energi listrik berubah menjadi kerja merapikan pakaian tanpa kehilangan",
+                    "Sebagian energi berpindah ke lingkungan sebagai panas yang tidak seluruhnya berguna untuk tujuan utama",
+                    "Energi dapat diciptakan dari nol oleh setrika",
+                    "Panas tidak termasuk bentuk energi"
+                ],
+                answer: 1, // Index B
+                explanation: "Tidak ada alat dengan efisiensi 100%. Sebagian energi selalu terdisipasi (terbuang) ke lingkungan sebagai kalor lingkungan yang tak termanfaatkan."
+            },
+            {
+                id: 29,
+                topic: "Energi",
+                question: "Sekolah mengganti lampu pijar dengan lampu LED yang menghasilkan terang serupa tetapi memakai daya lebih rendah. Lampu menyala rata-rata 5 jam setiap hari. Penghematan ini penting karena energi listrik perlu diproduksi dan penggunaannya menimbulkan biaya serta dampak lingkungan.\nAlasan ilmiah dan praktis terbaik memilih LED adalah ....",
+                options: [
+                    "LED selalu menghasilkan panas lebih besar",
+                    "LED dapat memberi cahaya serupa dengan konsumsi energi lebih kecil",
+                    "LED tidak membutuhkan energi listrik",
+                    "LED mengubah semua energi menjadi bunyi"
+                ],
+                answer: 1, // Index B
+                explanation: "Lampu LED memiliki efisiensi lumen per watt yang jauh lebih tinggi dibanding lampu pijar karena persentase energi yang terbuang menjadi kalor sangat kecil."
+            },
+            {
+                id: 30,
+                topic: "Energi",
+                question: "Sebuah bola dilempar ke atas. Selama bergerak naik, bola melambat; pada titik tertinggi kecepatannya sesaat nol, kemudian bola turun dan semakin cepat. Abaikan hambatan udara dan anggap energi mekanik tetap.\nDi titik tertinggi, pernyataan yang paling tepat adalah ....",
+                options: [
+                    "Energi kinetik maksimum dan energi potensial minimum",
+                    "Energi kinetik sesaat minimum, sedangkan energi potensial gravitasi maksimum",
+                    "Semua energi berubah menjadi energi listrik",
+                    "Energi total menjadi nol"
+                ],
+                answer: 1, // Index B
+                explanation: "Pada titik tertinggi, kecepatan bola v = 0 sehingga Energi Kinetik (Ek = 1/2 mv^2) mencapai nilai minimum (nol). Namun ketinggian h maksimum sehingga Energi Potensial (Ep = mgh) maksimum."
+            },
+
+            // Listrik
+            {
+                id: 31,
+                topic: "Listrik",
+                question: "Dua lampu dipasang seri pada satu baterai. Ketika salah satu lampu dilepas, lampu lain ikut padam karena jalur arus terputus. Pada rangkaian paralel, setiap cabang memiliki jalur tersendiri sehingga satu lampu padam tidak selalu memadamkan lampu lainnya.\nKeuntungan rangkaian paralel untuk lampu kelas adalah ....",
+                options: [
+                    "Jika satu lampu putus, semua lampu pasti padam",
+                    "Setiap lampu dapat tetap menyala ketika cabang lampu lain terputus",
+                    "Arus tidak memerlukan sumber tegangan",
+                    "Rangkaian paralel selalu tidak memakai kabel"
+                ],
+                answer: 1, // Index B
+                explanation: "Rangkaian paralel menyediakan percabangan jalur arus independen. Putusnya salah satu cabang tidak memutus aliran arus pada cabang lainnya."
+            },
+            {
+                id: 32,
+                topic: "Listrik",
+                question: "Siswa membuat rangkaian baterai, kabel, sakelar, dan lampu. Lampu tidak menyala. Setelah diperiksa, baterai masih baik, lampu tidak putus, tetapi sakelar berada pada posisi terbuka. Arus listrik memerlukan lintasan tertutup agar dapat mengalir.\nLangkah yang paling tepat adalah ....",
+                options: [
+                    "Menambahkan air ke dalam baterai",
+                    "Menutup sakelar agar rangkaian menjadi tertutup",
+                    "Melepas semua kabel",
+                    "Mengganti kabel dengan benang kering"
+                ],
+                answer: 1, // Index B
+                explanation: "Arus listrik hanya dapat mengalir dalam rangkaian tertutup (closed circuit). Menutup sakelar menghubungkan kontak listrik."
+            },
+            {
+                id: 33,
+                topic: "Listrik",
+                question: "Kabel penghantar biasanya dibuat dari tembaga, sedangkan bagian luar kabel dilapisi plastik. Tembaga memungkinkan arus mengalir, sementara plastik menghambat aliran listrik dan membantu melindungi pengguna dari sentuhan langsung pada penghantar.\nMengapa kombinasi bahan tersebut tepat?",
+                options: [
+                    "Tembaga isolator dan plastik konduktor",
+                    "Tembaga konduktor, plastik isolator",
+                    "Keduanya selalu menghantarkan listrik sama baik",
+                    "Plastik menghasilkan arus listrik sendiri"
+                ],
+                answer: 1, // Index B
+                explanation: "Tembaga adalah konduktor listrik yang baik (resitivitas rendah), sedangkan plastik adalah isolator yang menghambat arus sehingga aman dipegang."
+            },
+            {
+                id: 34,
+                topic: "Listrik",
+                question: "Sebuah keluarga menggunakan beberapa alat listrik secara bersamaan pada satu stopkontak bertingkat. Kabel terasa panas dan tercium bau plastik. Kabel panas dapat menandakan arus berlebihan atau sambungan yang buruk, yang berisiko menimbulkan kebakaran.\nTindakan paling aman adalah ....",
+                options: [
+                    "Menutup kabel dengan kain lalu tetap menggunakannya",
+                    "Mencabut beban dengan aman, mematikan sumber listrik, dan meminta orang dewasa/teknisi memeriksa instalasi",
+                    "Menyiram stopkontak dengan air",
+                    "Menambah lebih banyak alat agar panas terbagi"
+                ],
+                answer: 1, // Index B
+                explanation: "Beban listrik berlebih (overload) memicu panas akibat efek Joule pada resistansi kabel. Tindakan darurat aman adalah mematikan arus dan mengurangi beban peralatan."
+            },
+            {
+                id: 35,
+                topic: "Listrik",
+                question: "Sebuah alat memiliki tegangan 6 volt dan arus 2 ampere. Daya listrik dapat dihitung dengan rumus P = V × I. Siswa diminta memperkirakan daya alat tersebut sebelum membandingkan dengan alat lain.\nDaya listrik alat adalah ....",
+                options: [
+                    "3 watt",
+                    "8 watt",
+                    "12 watt",
+                    "24 watt"
+                ],
+                answer: 2, // Index C
+                explanation: "P = V x I = 6 Volt x 2 Ampere = 12 Watt."
+            },
+
+            // Magnet
+            {
+                id: 36,
+                topic: "Magnet",
+                question: "Di meja praktikum terdapat paku besi, klip baja, kertas, penggaris plastik, dan keping aluminium. Ketika magnet didekatkan, paku dan klip tertarik kuat, sedangkan benda lainnya tidak menunjukkan tarikan yang berarti.\nKesimpulan yang paling tepat adalah ....",
+                options: [
+                    "Semua logam pasti tertarik magnet kuat",
+                    "Magnet menarik bahan tertentu seperti besi dan baja, bukan semua benda",
+                    "Plastik menjadi magnet permanen",
+                    "Magnet hanya bekerja jika menyentuh benda"
+                ],
+                answer: 1, // Index B
+                explanation: "Benda feromagnetik seperti besi dan baja ditarik kuat oleh magnet. Aluminium merupakan paramagnetik (lemah) sedangkan kertas dan plastik adalah non-magnetik."
+            },
+            {
+                id: 37,
+                topic: "Magnet",
+                question: "Kompas berisi jarum magnet yang dapat berputar bebas. Saat diletakkan jauh dari benda bermagnet dan arus listrik, jarum cenderung menunjuk arah utara–selatan karena berinteraksi dengan medan magnet Bumi. Ketika magnet batang didekatkan, arah jarum berubah.\nMengapa arah jarum kompas berubah saat magnet didekatkan?",
+                options: [
+                    "Medan magnet dari magnet batang memengaruhi jarum kompas",
+                    "Magnet membuat jarum kehilangan massa",
+                    "Kompas mendeteksi cahaya matahari saja",
+                    "Jarum kompas berubah menjadi kayu"
+                ],
+                answer: 0, // Index A
+                explanation: "Jarum kompas adalah magnet kecil. Saat mendekati magnet batang, kuat medan magnet lokal dari batang mendominasi medan magnet bumi sehingga menyelewengkan jarum."
+            },
+            {
+                id: 38,
+                topic: "Magnet",
+                question: "Sebuah elektromagnet dibuat dengan melilitkan kawat pada paku besi dan menghubungkannya ke baterai. Saat arus mengalir, paku mampu mengangkat klip. Ketika baterai dilepas, kemampuan magnetnya sangat berkurang.\nCara meningkatkan kekuatan elektromagnet secara masuk akal adalah ....",
+                options: [
+                    "Mengurangi jumlah lilitan dan memutus arus",
+                    "Menambah jumlah lilitan atau memperbesar arus dengan tetap memperhatikan batas aman",
+                    "Mengganti paku dengan kertas",
+                    "Membuka rangkaian agar arus berhenti"
+                ],
+                answer: 1, // Index B
+                explanation: "Kekuatan elektromagnetik berbanding lurus dengan jumlah lilitan kumparan (N) dan kuat arus listrik (I) yang mengalir pada kumparan."
+            },
+            {
+                id: 39,
+                topic: "Magnet",
+                question: "Sebuah tempat daur ulang memakai magnet besar untuk memisahkan potongan besi dari campuran sampah. Setelah pemisahan, masih ada aluminium, plastik, dan kaca yang tertinggal. Magnet dipakai karena dapat menarik bahan tertentu tanpa harus memungut satu per satu.\nMengapa magnet tidak dapat memisahkan seluruh sampah dalam campuran itu?",
+                options: [
+                    "Magnet hanya menarik bahan tertentu, bukan plastik, kaca, atau aluminium secara kuat",
+                    "Magnet hanya bekerja di dalam air",
+                    "Semua sampah memiliki kutub utara dan selatan yang sama",
+                    "Besi tidak memiliki sifat magnet"
+                ],
+                answer: 0, // Index A
+                explanation: "Sifat kemagnetan spesifik menarik bahan feromagnetik saja. Bahan non-feromagnetik seperti plastik, kaca, dan aluminium tidak ditarik oleh magnet industri tersebut."
+            },
+            {
+                id: 40,
+                topic: "Magnet",
+                question: "Dua magnet batang didekatkan. Ujung utara magnet pertama dihadapkan pada ujung utara magnet kedua. Siswa mengamati bahwa kedua magnet saling menjauh tanpa perlu disentuh kuat.\nPrediksi yang benar jika ujung utara diganti dengan ujung selatan pada salah satu magnet adalah ....",
+                options: [
+                    "Tetap tolak-menolak karena semua kutub sama",
+                    "Tarik-menarik karena kutub yang berhadapan berbeda",
+                    "Tidak ada gaya magnet pada jarak dekat",
+                    "Kedua magnet kehilangan kemagnetannya seketika"
+                ],
+                answer: 1, // Index B
+                explanation: "Hukum dasar magnet: Kutub yang senama (U-U atau S-S) akan tolak-menolak, sedangkan kutub yang tidak senama (U-S) akan tarik-menarik."
+            },
+
+            // Bahan
+            {
+                id: 41,
+                topic: "Bahan",
+                question: "Sebuah pabrik membuat gagang panci dari bahan yang tidak mudah menghantarkan panas, tetapi bagian dasar panci dibuat dari logam agar panas dari kompor cepat berpindah ke makanan. Pemilihan bahan mempertimbangkan fungsi, keamanan, dan ketahanan.\nPasangan bahan dan fungsi yang paling tepat adalah ....",
+                options: [
+                    "Gagang dari logam tipis dan dasar dari kayu",
+                    "Gagang dari bahan isolator panas dan dasar dari logam penghantar panas",
+                    "Seluruh panci dari kertas",
+                    "Dasar panci dari kain agar panas cepat merata"
+                ],
+                answer: 1, // Index B
+                explanation: "Dasar panci menggunakan logam (konduktor panas) agar cepat menyalurkan kalor secara konduksi, sedangkan gagang menggunakan bahan isolator (kayu/ebonit) agar aman dipegang."
+            },
+            {
+                id: 42,
+                topic: "Bahan",
+                question: "Botol kaca bening digunakan untuk menyimpan minuman karena mudah dibersihkan dan tidak mudah bereaksi dengan banyak jenis makanan. Namun, kaca dapat pecah jika jatuh dan pecahannya tajam. Botol plastik lebih ringan tetapi jenis plastik tertentu dapat berubah bentuk jika terkena panas tinggi.\nJika minuman panas akan disimpan, pertimbangan terbaik adalah ....",
+                options: [
+                    "Semua plastik aman untuk semua suhu",
+                    "Memilih wadah berlabel sesuai penggunaan suhu dan mengikuti petunjuk keamanannya",
+                    "Menggunakan kaca retak karena lebih lentur",
+                    "Memanaskan wadah apa pun sampai lunak"
+                ],
+                answer: 1, // Index B
+                explanation: "Setiap jenis bahan memiliki batas ketahanan termal (food-grade rating). Memilih wadah sesuai spesifikasi suhu mencegah kontaminasi zat kimia berbahaya."
+            },
+            {
+                id: 43,
+                topic: "Bahan",
+                question: "Sebuah jas hujan dibuat dari bahan yang tidak mudah ditembus air, sedangkan handuk dibuat dari bahan yang mudah menyerap air. Keduanya dipilih bukan karena satu bahan lebih baik untuk semua keadaan, melainkan karena kebutuhan penggunaan berbeda.\nPrinsip pemilihan bahan yang ditunjukkan oleh contoh itu adalah ....",
+                options: [
+                    "Bahan terbaik selalu yang paling mahal",
+                    "Sifat bahan harus sesuai dengan fungsi benda",
+                    "Bahan yang menyerap air cocok untuk semua benda",
+                    "Bahan kedap air pasti rapuh dan tidak berguna"
+                ],
+                answer: 1, // Index B
+                explanation: "Pemilihan bahan teknik didasarkan pada kesesuaian antara karakteristik/sifat fisika-kimia bahan dengan fungsi aplikasi yang dibutuhkan."
+            },
+            {
+                id: 44,
+                topic: "Bahan",
+                question: "Dalam kegiatan membuat jembatan mini, kelompok A memakai stik kayu yang disusun menjadi segitiga, sedangkan kelompok B memakai stik sama panjang yang disusun sebagai persegi tanpa penguat diagonal. Ketika diberi beban yang sama, jembatan A lebih stabil.\nFaktor utama yang menjelaskan hasil itu adalah ....",
+                options: [
+                    "Bentuk susunan dan distribusi gaya memengaruhi kekuatan struktur",
+                    "Kayu segitiga berubah menjadi logam",
+                    "Beban pada jembatan A tidak memiliki berat",
+                    "Bentuk persegi selalu lebih kuat dalam semua kondisi"
+                ],
+                answer: 0, // Index A
+                explanation: "Struktur rangka segitiga (truss) menyebarkan beban tekan dan tarik secara merata ke titik-titik simpul, sehingga jauh lebih kaku dan kokoh dibanding bentuk persegi."
+            },
+            {
+                id: 45,
+                topic: "Bahan",
+                question: "Siswa menguji bahan untuk membuat jendela rumah kaca mini. Mereka membutuhkan bahan yang meneruskan cahaya, cukup kuat, dan aman saat digunakan. Kaca meneruskan cahaya tetapi dapat pecah; plastik bening tertentu lebih ringan, namun dapat tergores dan memiliki batas suhu.\nKeputusan terbaik saat memilih bahan adalah ....",
+                options: [
+                    "Menentukan bahan berdasarkan beberapa kriteria sekaligus, termasuk keamanan, transparansi, kekuatan, dan biaya",
+                    "Memilih bahan hanya karena warnanya menarik",
+                    "Mengabaikan risiko pecah atau berubah bentuk",
+                    "Memilih bahan yang sama untuk semua kebutuhan"
+                ],
+                answer: 0, // Index A
+                explanation: "Proses rekayasa pemilihan bahan memerlukan evaluasi komprehensif terhadap multi-kriteria: sifat optik, mekanis, keamanan operasional, dan efisiensi biaya."
+            },
+
+            // Materi & Wujud Benda
+            {
+                id: 46,
+                topic: "Materi",
+                question: "Es batu diletakkan di atas piring. Setelah beberapa menit, es berubah menjadi air. Jika air tersebut kemudian dipanaskan hingga mendidih, terbentuk uap. Ketika uap menyentuh tutup panci yang dingin, terbentuk titik-titik air.\nUrutan perubahan wujud yang terjadi adalah ....",
+                options: [
+                    "Membeku, mengembun, menguap",
+                    "Mencair, menguap, mengembun",
+                    "Menguap, membeku, menyublim",
+                    "Menyublim, mencair, membeku"
+                ],
+                answer: 1, // Index B
+                explanation: "Es (padat) -> air (cair) = Mencair. Air (cair) -> uap (gas) = Menguap. Uap (gas) -> titik air (cair) = Mengembun."
+            },
+            {
+                id: 47,
+                topic: "Materi",
+                question: "Udara di dalam balon dapat dimampatkan lebih mudah daripada air di dalam botol. Pada gas, partikel-partikel bergerak bebas dan jaraknya relatif renggang; pada cairan, partikel lebih dekat tetapi masih dapat bergeser; pada padatan, partikel tersusun rapat dan hanya bergetar di sekitar posisinya.\nModel partikel yang paling menjelaskan udara mudah dimampatkan adalah ....",
+                options: [
+                    "Partikel gas tersusun sangat rapat tanpa ruang",
+                    "Partikel gas berjauhan sehingga ruang antar partikelnya dapat diperkecil",
+                    "Partikel cair tidak bergerak sama sekali",
+                    "Partikel padat selalu terbang bebas"
+                ],
+                answer: 1, // Index B
+                explanation: "Sesuai teori kinetik gas, jarak antar-partikel gas sangat renggang dengan gaya antar-partikel lemah, sehingga volume gas mudah ditekan/dimampatkan (kompresibel)."
+            },
+            {
+                id: 48,
+                topic: "Materi",
+                question: "Seorang siswa mengukur massa batu sebelum dan sesudah dipindahkan ke wadah berbeda. Massanya tetap, tetapi bentuk yang terlihat menyesuaikan dengan posisi batu. Air dalam gelas justru mengikuti bentuk bagian bawah wadah, sedangkan udara mengisi ruang yang tersedia.\nPernyataan yang paling tepat tentang wujud benda adalah ....",
+                options: [
+                    "Padat memiliki bentuk dan volume relatif tetap; cair bervolume tetap tetapi bentuk mengikuti wadah; gas mengisi ruang yang tersedia",
+                    "Padat selalu mengikuti bentuk wadah, cair memiliki bentuk tetap, gas memiliki volume tetap",
+                    "Ketiga wujud tidak memiliki massa",
+                    "Gas tidak menempati ruang"
+                ],
+                answer: 0, // Index A
+                explanation: "Sifat wujud zat: Zat padat (bentuk & volume tetap), Zat cair (volume tetap, bentuk sesuai wadah), Zat gas (bentuk & volume berubah mengisi ruang)."
+            },
+            {
+                id: 49,
+                topic: "Materi",
+                question: "Pada pagi hari, rumput tampak basah oleh embun meskipun tidak turun hujan. Udara mengandung uap air. Ketika permukaan rumput lebih dingin daripada udara di sekitarnya, sebagian uap air berubah menjadi titik-titik air.\nProses yang menghasilkan embun adalah ....",
+                options: [
+                    "Penguapan",
+                    "Pengembunan",
+                    "Penyubliman",
+                    "Pembekuan langsung dari batu"
+                ],
+                answer: 1, // Index B
+                explanation: "Pengembunan (kondensasi) adalah perubahan wujud dari gas (uap air di udara) menjadi cair (titik air) ketika mengalami penurunan suhu."
+            },
+            {
+                id: 50,
+                topic: "Materi",
+                question: "Sebuah botol tertutup berisi udara ditimbang. Botol kemudian dipanaskan tetapi tetap tertutup rapat dan tidak bocor. Suhu udara naik, partikel bergerak lebih cepat, dan tekanan di dalam botol dapat meningkat.\nMengapa botol tidak boleh dipanaskan sembarangan?",
+                options: [
+                    "Karena pemanasan dapat meningkatkan tekanan gas di dalam wadah tertutup dan berisiko membuatnya pecah",
+                    "Karena gas tidak dapat dipanaskan",
+                    "Karena massa udara berubah menjadi nol",
+                    "Karena suhu tidak memengaruhi gerak partikel"
+                ],
+                answer: 0, // Index A
+                explanation: "Menurut hukum Gay-Lussac (P ~ T), pemanasan gas dalam wadah tertutup (volume konstan) akan meningkatkan energi kinetik partikel dan frekuensi tumbukan, sehingga tekanan udara melonjak tajam dan berisiko memecahkan wadah."
+            }
+        ];
+
+        let currentStudent = null;
+        let currentQuestionIdx = 0;
+        let userAnswers = new Array(50).fill(null); // stores option indices (0,1,2,3)
+        let isBookmarked = new Array(50).fill(false);
+        let isQuizCompleted = false;
+        let quizStartTime = null;
+        let quizTimerInterval = null;
+        let elapsedSeconds = 0;
+        let isTeacherAuthed = false;
+
+        // Custom LocalStorage Key for Teacher Recap
+        const STORAGE_KEY = 'min2garut_openlab_scores';
+
+        // Initialize On Load
+        window.onload = function() {
+            renderQuestionGrid();
+        };
+
+        // Switch Active Tab
+        function switchTab(tab) {
+            const tabQuiz = document.getElementById('tab-quiz');
+            const tabBank = document.getElementById('tab-bank');
+            const navQuiz = document.getElementById('nav-quiz');
+            const navBank = document.getElementById('nav-bank');
+
+            if (tab === 'quiz') {
+                tabQuiz.classList.remove('hidden');
+                tabBank.classList.add('hidden');
+                navQuiz.className = "px-4 py-2 text-sm font-bold rounded-xl transition duration-200 flex items-center gap-2 bg-emerald-600 text-white shadow-md";
+                navBank.className = "px-4 py-2 text-sm font-bold rounded-xl transition duration-200 flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200";
+            } else if (tab === 'bank') {
+                tabQuiz.classList.add('hidden');
+                tabBank.classList.remove('hidden');
+                navBank.className = "px-4 py-2 text-sm font-bold rounded-xl transition duration-200 flex items-center gap-2 bg-emerald-600 text-white shadow-md";
+                navQuiz.className = "px-4 py-2 text-sm font-bold rounded-xl transition duration-200 flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-slate-200";
+
+                if (isQuizCompleted) {
+                    document.getElementById('bank-locked-screen').classList.add('hidden');
+                    document.getElementById('bank-unlocked-content').classList.remove('hidden');
+                    renderBankSoal();
+                } else {
+                    document.getElementById('bank-locked-screen').classList.remove('hidden');
+                    document.getElementById('bank-unlocked-content').classList.add('hidden');
+                }
+            }
+        }
+
+        // Lock check helper
+        function checkBankAccess() {
+            if (!isQuizCompleted) {
+                showCustomModal(
+                    "Akses Terkunci", 
+                    "Kunci Jawaban dan Pembahasan Bank Soal hanya dapat dibuka setelah Anda menyelesaikan Kuis secara lengkap.",
+                    [
+                        { text: "Paham, Mulai Kuis", class: "px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold", action: () => { closeCustomModal(); switchTab('quiz'); } }
+                    ]
+                );
+            } else {
+                switchTab('bank');
+            }
+        }
+
+        function handleStartQuiz(e) {
+            e.preventDefault();
+            const nama = document.getElementById('input-nama').value.trim();
+            const kelas = document.getElementById('input-kelas').value;
+            const absen = document.getElementById('input-absen').value;
+
+            if (!nama || !kelas || !absen) {
+                showCustomModal("Data Belum Lengkap", "Harap isi Nama, Kelas, dan Nomor Absen dengan benar.", [
+                    { text: "OK", class: "px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold", action: closeCustomModal }
+                ]);
+                return;
+            }
+
+            currentStudent = { nama, kelas, absen };
+            document.getElementById('student-form-card').classList.add('hidden');
+            document.getElementById('quiz-player-card').classList.remove('hidden');
+            document.getElementById('quiz-player-card').classList.add('grid');
+            document.getElementById('quiz-student-badge').innerText = `${nama} (${kelas} / No.${absen})`;
+
+            // Reset States
+            currentQuestionIdx = 0;
+            userAnswers.fill(null);
+            isBookmarked.fill(false);
+            elapsedSeconds = 0;
+            startTimer();
+
+            renderCurrentQuestion();
+            renderQuestionGrid();
+            updateAnsweredBadge();
+        }
+
+        function startTimer() {
+            clearInterval(quizTimerInterval);
+            quizTimerInterval = setInterval(() => {
+                elapsedSeconds++;
+                const hrs = String(Math.floor(elapsedSeconds / 3600)).padStart(2, '0');
+                const mins = String(Math.floor((elapsedSeconds % 3600) / 60)).padStart(2, '0');
+                const secs = String(elapsedSeconds % 60).padStart(2, '0');
+                document.getElementById('quiz-timer').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function renderCurrentQuestion() {
+            const q = quizData[currentQuestionIdx];
+            document.getElementById('current-q-num').innerText = currentQuestionIdx + 1;
+            document.getElementById('topic-badge').innerText = q.topic;
+            document.getElementById('question-text').innerText = q.question;
+
+            // Bookmark Button styling
+            const bmBtn = document.getElementById('bookmark-btn');
+            if (isBookmarked[currentQuestionIdx]) {
+                bmBtn.className = "text-xs font-semibold px-3 py-1.5 rounded-lg border border-amber-300 bg-amber-100 text-amber-800 transition flex items-center gap-1.5";
+                bmBtn.innerHTML = `<i class="fa-solid fa-bookmark text-amber-600"></i><span>Ditandai Ragu</span>`;
+            } else {
+                bmBtn.className = "text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition flex items-center gap-1.5 text-slate-500";
+                bmBtn.innerHTML = `<i class="fa-regular fa-bookmark"></i><span>Tandai Ragu</span>`;
+            }
+
+            // Render Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            q.options.forEach((optText, idx) => {
+                const isSelected = userAnswers[currentQuestionIdx] === idx;
+                
+                const optDiv = document.createElement('div');
+                optDiv.onclick = () => selectOption(idx);
+                optDiv.className = `p-4 rounded-2xl border-2 cursor-pointer transition flex items-center gap-3 ${
+                    isSelected 
+                        ? 'border-emerald-600 bg-emerald-50/80 text-emerald-950 font-semibold shadow-sm' 
+                        : 'border-slate-200 hover:border-emerald-300 hover:bg-slate-50 text-slate-700'
+                }`;
+
+                optDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs ${
+                        isSelected ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'
+                    }">
+                        ${optionLabels[idx]}
+                    </div>
+                    <div class="text-sm sm:text-base leading-normal flex-grow">${optText}</div>
+                `;
+                container.appendChild(optDiv);
+            });
+
+            // Nav buttons status
+            document.getElementById('btn-prev').disabled = currentQuestionIdx === 0;
+            document.getElementById('btn-prev').style.opacity = currentQuestionIdx === 0 ? "0.5" : "1";
+            
+            if (currentQuestionIdx === quizData.length - 1) {
+                document.getElementById('btn-next').classList.add('hidden');
+            } else {
+                document.getElementById('btn-next').classList.remove('hidden');
+            }
+        }
+
+        function selectOption(optIndex) {
+            userAnswers[currentQuestionIdx] = optIndex;
+            renderCurrentQuestion();
+            renderQuestionGrid();
+            updateAnsweredBadge();
+        }
+
+        function toggleBookmarkCurrent() {
+            isBookmarked[currentQuestionIdx] = !isBookmarked[currentQuestionIdx];
+            renderCurrentQuestion();
+            renderQuestionGrid();
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIdx > 0) {
+                currentQuestionIdx--;
+                renderCurrentQuestion();
+                renderQuestionGrid();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIdx < quizData.length - 1) {
+                currentQuestionIdx++;
+                renderCurrentQuestion();
+                renderQuestionGrid();
+            }
+        }
+
+        function jumpToQuestion(idx) {
+            currentQuestionIdx = idx;
+            renderCurrentQuestion();
+            renderQuestionGrid();
+        }
+
+        function updateAnsweredBadge() {
+            const count = userAnswers.filter(a => a !== null).length;
+            document.getElementById('answered-count-badge').innerText = `Terjawab: ${count}/50`;
+        }
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('q-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            for (let i = 0; i < quizData.length; i++) {
+                const btn = document.createElement('button');
+                btn.onclick = () => jumpToQuestion(i);
+                
+                const isCurrent = i === currentQuestionIdx;
+                const isAns = userAnswers[i] !== null;
+                const isRagu = isBookmarked[i];
+
+                let bgClass = "bg-slate-100 text-slate-700 hover:bg-slate-200";
+                if (isRagu) {
+                    bgClass = "bg-amber-400 text-slate-900 font-bold";
+                } else if (isAns) {
+                    bgClass = "bg-emerald-600 text-white font-bold";
+                }
+
+                let ringClass = isCurrent ? "ring-2 ring-indigo-600 ring-offset-2" : "";
+
+                btn.className = `w-full h-9 text-xs font-bold rounded-xl flex items-center justify-center transition ${bgClass} ${ringClass}`;
+                btn.innerText = i + 1;
+                grid.appendChild(btn);
+            }
+        }
+
+        function confirmFinishQuiz() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const remaining = 50 - answeredCount;
+
+            let warningText = `Anda telah menjawab ${answeredCount} dari 50 soal.`;
+            if (remaining > 0) {
+                warningText += ` Masih ada ${remaining} soal yang belum dijawab. Apakah Anda yakin ingin mengirim jawaban?`;
+            } else {
+                warningText += ` Apakah Anda yakin ingin mengumpulkan seluruh jawaban Anda sekarang?`;
+            }
+
+            showCustomModal(
+                "Selesaikan Kuis?",
+                warningText,
+                [
+                    { text: "Batal", class: "px-4 py-2 bg-slate-200 text-slate-700 rounded-xl text-xs font-bold", action: closeCustomModal },
+                    { text: "Kirim Sekarang", class: "px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold", action: () => { closeCustomModal(); finalizeQuiz(); } }
+                ]
+            );
+        }
+
+        function finalizeQuiz() {
+            clearInterval(quizTimerInterval);
+            isQuizCompleted = true;
+
+            // Unlock Bank Soal Icon
+            const lockIcon = document.getElementById('bank-lock-icon');
+            if (lockIcon) {
+                lockIcon.className = "fa-solid fa-lock-open text-emerald-500";
+            }
+
+            // Calculate Score
+            let correct = 0;
+            let wrong = 0;
+            let empty = 0;
+
+            quizData.forEach((q, idx) => {
+                const ans = userAnswers[idx];
+                if (ans === null) {
+                    empty++;
+                } else if (ans === q.answer) {
+                    correct++;
+                } else {
+                    wrong++;
+                }
+            });
+
+            const score = Math.round((correct / 50) * 100);
+            const minutes = Math.floor(elapsedSeconds / 60);
+            const seconds = elapsedSeconds % 60;
+            const timeStr = `${minutes} m ${seconds} s`;
+
+            // Display Results UI
+            document.getElementById('quiz-player-card').classList.add('hidden');
+            document.getElementById('quiz-result-card').classList.remove('hidden');
+
+            document.getElementById('result-student-info').innerText = `${currentStudent.nama} (${currentStudent.kelas} / Absen ${currentStudent.absen})`;
+            document.getElementById('final-score-val').innerText = score;
+            document.getElementById('final-score-text').innerText = `Akurasi Jawaban Benar ${Math.round((correct/50)*100)}%`;
+
+            document.getElementById('res-correct').innerText = correct;
+            document.getElementById('res-wrong').innerText = wrong;
+            document.getElementById('res-empty').innerText = empty;
+            document.getElementById('res-time').innerText = timeStr;
+
+            // Motivational Feedback
+            const motEl = document.getElementById('motivational-msg');
+            if (score >= 85) {
+                motEl.innerHTML = `🌟 <strong>Luar Biasa!</strong> Selamat, pencapaianmu sangat memuaskan! Kamu siap menjadi calon juara Olimpiade Sains Open Lab 2026. Pertahankan prestasimu!`;
+            } else if (score >= 70) {
+                motEl.innerHTML = `👍 <strong>Sangat Baik!</strong> Hasil yang bagus! Pelajari kembali beberapa soal yang masih keliru pada Bank Soal Pembahasan agar makin mantap.`;
+            } else {
+                motEl.innerHTML = `💪 <strong>Tetap Semangat!</strong> Jangan berkecil hati. Manfaatkan menu Bank Soal & Pembahasan untuk mereview materi dan tingkatkan pemahamanmu!`;
+            }
+
+            // Save to LocalStorage for Teacher
+            saveScoreToStorage({
+                nama: currentStudent.nama,
+                kelas: currentStudent.kelas,
+                absen: currentStudent.absen,
+                score: score,
+                correct: correct,
+                wrong: wrong,
+                empty: empty,
+                timeStr: timeStr,
+                dateStr: new Date().toLocaleString('id-ID')
+            });
+        }
+
+        function unlockAndGoToBank() {
+            switchTab('bank');
+        }
+
+        function restartQuiz() {
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('student-form-card').classList.remove('hidden');
+            isQuizCompleted = false;
+            
+            const lockIcon = document.getElementById('bank-lock-icon');
+            if (lockIcon) {
+                lockIcon.className = "fa-solid fa-lock text-amber-500";
+            }
+        }
+
+        function renderBankSoal() {
+            const container = document.getElementById('bank-list-container');
+            const filterCategory = document.getElementById('bank-filter-category').value;
+            container.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            quizData.forEach((q, idx) => {
+                if (filterCategory !== 'ALL' && q.topic !== filterCategory) {
+                    return;
+                }
+
+                const studentAns = userAnswers[idx];
+                const isCorrect = studentAns === q.answer;
+                const isSkipped = studentAns === null;
+
+                let statusBadge = '';
+                if (isSkipped) {
+                    statusBadge = `<span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-circle-minus mr-1"></i>Tidak Dijawab</span>`;
+                } else if (isCorrect) {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-circle-check mr-1"></i>Jawaban Anda Benar</span>`;
+                } else {
+                    statusBadge = `<span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-circle-xmark mr-1"></i>Jawaban Anda Salah</span>`;
+                }
+
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4";
+
+                card.innerHTML = `
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg">Soal #${q.id}</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-lg">${q.topic}</span>
+                        </div>
+                        ${statusBadge}
+                    </div>
+
+                    <div class="text-slate-800 font-medium text-base">${q.question}</div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                        ${q.options.map((opt, oIdx) => {
+                            let optBg = "bg-slate-50 border-slate-200 text-slate-700";
+                            if (oIdx === q.answer) {
+                                optBg = "bg-emerald-100 border-emerald-400 text-emerald-950 font-bold";
+                            } else if (oIdx === studentAns && !isCorrect) {
+                                optBg = "bg-rose-100 border-rose-300 text-rose-950 font-semibold";
+                            }
+
+                            return `
+                                <div class="p-3 rounded-xl border ${optBg} flex items-center gap-2">
+                                    <span class="font-bold uppercase">${optionLabels[oIdx]}.</span>
+                                    <span>${opt}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs sm:text-sm text-slate-700 space-y-1">
+                        <div class="font-bold text-emerald-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                            <span>Kunci Jawaban: Pilihan (${optionLabels[q.answer]})</span>
+                        </div>
+                        <div class="text-slate-600 leading-relaxed pt-1">
+                            <strong>Pembahasan Ilmiah:</strong> ${q.explanation}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function openTeacherModal() {
+            document.getElementById('teacher-modal').classList.remove('hidden');
+            if (isTeacherAuthed) {
+                showTeacherDashboard();
+            } else {
+                document.getElementById('teacher-auth-card').classList.remove('hidden');
+                document.getElementById('teacher-dashboard').classList.add('hidden');
+            }
+        }
+
+        function closeTeacherModal() {
+            document.getElementById('teacher-modal').classList.add('hidden');
+        }
+
+        function handleTeacherLogin(e) {
+            e.preventDefault();
+            const pin = document.getElementById('teacher-pin-input').value;
+            if (pin === '2026') {
+                isTeacherAuthed = true;
+                showTeacherDashboard();
+            } else {
+                showCustomModal("PIN Salah", "PIN Guru yang Anda masukkan tidak sesuai. Silakan coba lagi.", [
+                    { text: "Coba Lagi", class: "px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold", action: closeCustomModal }
+                ]);
+            }
+        }
+
+        function showTeacherDashboard() {
+            document.getElementById('teacher-auth-card').classList.add('hidden');
+            document.getElementById('teacher-dashboard').classList.remove('hidden');
+            renderTeacherTable();
+        }
+
+        function saveScoreToStorage(record) {
+            const scores = getScoresFromStorage();
+            scores.unshift(record);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(scores));
+        }
+
+        function getScoresFromStorage() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function renderTeacherTable() {
+            const tbody = document.getElementById('teacher-table-body');
+            const searchVal = document.getElementById('teacher-search').value.toLowerCase();
+            const scores = getScoresFromStorage();
+
+            const filtered = scores.filter(s => 
+                s.nama.toLowerCase().includes(searchVal) || 
+                s.kelas.toLowerCase().includes(searchVal)
+            );
+
+            // Update Stats
+            document.getElementById('stat-total-siswa').innerText = scores.length;
+            if (scores.length > 0) {
+                const totalVal = scores.reduce((acc, curr) => acc + curr.score, 0);
+                const avg = Math.round(totalVal / scores.length);
+                const max = Math.max(...scores.map(s => s.score));
+                const min = Math.min(...scores.map(s => s.score));
+
+                document.getElementById('stat-avg-score').innerText = avg;
+                document.getElementById('stat-max-score').innerText = max;
+                document.getElementById('stat-min-score').innerText = min;
+            } else {
+                document.getElementById('stat-avg-score').innerText = '0';
+                document.getElementById('stat-max-score').innerText = '0';
+                document.getElementById('stat-min-score').innerText = '0';
+            }
+
+            tbody.innerHTML = '';
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-8 text-slate-400 font-medium">
+                            Belum ada rekap data nilai siswa yang tersimpan.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            filtered.forEach((row, i) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition";
+
+                let scoreColor = "text-emerald-700 bg-emerald-50";
+                if (row.score < 70) scoreColor = "text-rose-700 bg-rose-50";
+                else if (row.score < 85) scoreColor = "text-amber-700 bg-amber-50";
+
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-slate-400">${i + 1}</td>
+                    <td class="py-3 px-4 font-bold text-slate-800">${row.nama}</td>
+                    <td class="py-3 px-4">${row.kelas}</td>
+                    <td class="py-3 px-4">${row.absen}</td>
+                    <td class="py-3 px-4 text-center">
+                        <span class="px-2.5 py-1 rounded-xl font-extrabold ${scoreColor}">${row.score}</span>
+                    </td>
+                    <td class="py-3 px-4 text-center text-xs">
+                        <span class="text-emerald-600 font-bold">${row.correct} B</span> / 
+                        <span class="text-rose-600 font-bold">${row.wrong} S</span> / 
+                        <span class="text-amber-600 font-bold">${row.empty} K</span>
+                    </td>
+                    <td class="py-3 px-4 text-slate-600">${row.timeStr}</td>
+                    <td class="py-3 px-4 text-xs text-slate-500">${row.dateStr}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function exportToCSV() {
+            const scores = getScoresFromStorage();
+            if (scores.length === 0) {
+                showCustomModal("Data Kosong", "Tidak ada data rekap nilai untuk diunduh.", [
+                    { text: "OK", class: "px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold", action: closeCustomModal }
+                ]);
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,No,Nama Siswa,Kelas,No Absen,Nilai Akhir,Benar,Salah,Kosong,Waktu Pengerjaan,Tanggal\n";
+            scores.forEach((row, i) => {
+                csvContent += `${i + 1},"${row.nama}","${row.kelas}",${row.absen},${row.score},${row.correct},${row.wrong},${row.empty},"${row.timeStr}","${row.dateStr}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Rekap_Nilai_Olympiade_IPA_MIN2Garut_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function clearAllDataConfirm() {
+            showCustomModal(
+                "Hapus Seluruh Data?",
+                "Apakah Bapak/Ibu Guru yakin ingin menghapus seluruh rekapan nilai siswa dari penyimpanan lokal perangkat ini?",
+                [
+                    { text: "Batal", class: "px-4 py-2 bg-slate-200 text-slate-700 rounded-xl text-xs font-bold", action: closeCustomModal },
+                    { text: "Ya, Hapus Semua", class: "px-4 py-2 bg-rose-600 text-white rounded-xl text-xs font-bold", action: () => {
+                        localStorage.removeItem(STORAGE_KEY);
+                        renderTeacherTable();
+                        closeCustomModal();
+                    }}
+                ]
+            );
+        }
+
+        // Custom Modal UI Handlers (Replaces alert/confirm)
+        function showCustomModal(title, body, actions = []) {
+            document.getElementById('custom-modal-title').innerText = title;
+            document.getElementById('custom-modal-body').innerText = body;
+            
+            const actionsDiv = document.getElementById('custom-modal-actions');
+            actionsDiv.innerHTML = '';
+
+            actions.forEach(act => {
+                const b = document.createElement('button');
+                b.className = act.class;
+                b.innerText = act.text;
+                b.onclick = act.action;
+                actionsDiv.appendChild(b);
+            });
+
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeCustomModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
